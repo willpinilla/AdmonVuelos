@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VuelosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAerolineas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Aerolinea" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCiudades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ciudad" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblEstadoVuelo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EstadoVuelo" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblNumeroVuelo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroVuelo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblVuelos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CiudadOrigenId" Type="int" Nullable="false" />
+          <Property Name="CiudadDestinoId" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="HoraSalida" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Horallegada" Type="time" Precision="7" Nullable="false" />
+          <Property Name="NroVueloId" Type="int" Nullable="false" />
+          <Property Name="AerolineaId" Type="int" Nullable="false" />
+          <Property Name="EstadoId" Type="int" Nullable="false" />
+          <Property Name="CondicionVuelo" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblVuelos_tblAerolineas">
+          <End Role="tblAerolineas" Type="Self.tblAerolineas" Multiplicity="1" />
+          <End Role="tblVuelos" Type="Self.tblVuelos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAerolineas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblVuelos">
+              <PropertyRef Name="AerolineaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVuelos_tblCiudades">
+          <End Role="tblCiudades" Type="Self.tblCiudades" Multiplicity="1" />
+          <End Role="tblVuelos" Type="Self.tblVuelos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCiudades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblVuelos">
+              <PropertyRef Name="CiudadOrigenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVuelos_tblCiudades1">
+          <End Role="tblCiudades" Type="Self.tblCiudades" Multiplicity="1" />
+          <End Role="tblVuelos" Type="Self.tblVuelos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCiudades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblVuelos">
+              <PropertyRef Name="CiudadDestinoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVuelos_tblEstadoVuelo">
+          <End Role="tblEstadoVuelo" Type="Self.tblEstadoVuelo" Multiplicity="1" />
+          <End Role="tblVuelos" Type="Self.tblVuelos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEstadoVuelo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblVuelos">
+              <PropertyRef Name="EstadoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVuelos_tblNumeroVuelo">
+          <End Role="tblNumeroVuelo" Type="Self.tblNumeroVuelo" Multiplicity="1" />
+          <End Role="tblVuelos" Type="Self.tblVuelos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNumeroVuelo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblVuelos">
+              <PropertyRef Name="NroVueloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VuelosModelStoreContainer">
+          <EntitySet Name="tblAerolineas" EntityType="Self.tblAerolineas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCiudades" EntityType="Self.tblCiudades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEstadoVuelo" EntityType="Self.tblEstadoVuelo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNumeroVuelo" EntityType="Self.tblNumeroVuelo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVuelos" EntityType="Self.tblVuelos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblVuelos_tblAerolineas" Association="Self.FK_tblVuelos_tblAerolineas">
+            <End Role="tblAerolineas" EntitySet="tblAerolineas" />
+            <End Role="tblVuelos" EntitySet="tblVuelos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVuelos_tblCiudades" Association="Self.FK_tblVuelos_tblCiudades">
+            <End Role="tblCiudades" EntitySet="tblCiudades" />
+            <End Role="tblVuelos" EntitySet="tblVuelos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVuelos_tblCiudades1" Association="Self.FK_tblVuelos_tblCiudades1">
+            <End Role="tblCiudades" EntitySet="tblCiudades" />
+            <End Role="tblVuelos" EntitySet="tblVuelos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVuelos_tblEstadoVuelo" Association="Self.FK_tblVuelos_tblEstadoVuelo">
+            <End Role="tblEstadoVuelo" EntitySet="tblEstadoVuelo" />
+            <End Role="tblVuelos" EntitySet="tblVuelos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVuelos_tblNumeroVuelo" Association="Self.FK_tblVuelos_tblNumeroVuelo">
+            <End Role="tblNumeroVuelo" EntitySet="tblNumeroVuelo" />
+            <End Role="tblVuelos" EntitySet="tblVuelos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VuelosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblAerolineas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Aerolinea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblVuelos" Relationship="Self.FK_tblVuelos_tblAerolineas" FromRole="tblAerolineas" ToRole="tblVuelos" />
+        </EntityType>
+        <EntityType Name="tblCiudades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ciudad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblVuelos" Relationship="Self.FK_tblVuelos_tblCiudades" FromRole="tblCiudades" ToRole="tblVuelos" />
+          <NavigationProperty Name="tblVuelos1" Relationship="Self.FK_tblVuelos_tblCiudades1" FromRole="tblCiudades" ToRole="tblVuelos" />
+        </EntityType>
+        <EntityType Name="tblEstadoVuelo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EstadoVuelo" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblVuelos" Relationship="Self.FK_tblVuelos_tblEstadoVuelo" FromRole="tblEstadoVuelo" ToRole="tblVuelos" />
+        </EntityType>
+        <EntityType Name="tblNumeroVuelo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroVuelo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblVuelos" Relationship="Self.FK_tblVuelos_tblNumeroVuelo" FromRole="tblNumeroVuelo" ToRole="tblVuelos" />
+        </EntityType>
+        <EntityType Name="tblVuelos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CiudadOrigenId" Type="Int32" Nullable="false" />
+          <Property Name="CiudadDestinoId" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HoraSalida" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Horallegada" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="NroVueloId" Type="Int32" Nullable="false" />
+          <Property Name="AerolineaId" Type="Int32" Nullable="false" />
+          <Property Name="EstadoId" Type="Int32" Nullable="false" />
+          <Property Name="CondicionVuelo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblAerolineas" Relationship="Self.FK_tblVuelos_tblAerolineas" FromRole="tblVuelos" ToRole="tblAerolineas" />
+          <NavigationProperty Name="tblCiudades" Relationship="Self.FK_tblVuelos_tblCiudades" FromRole="tblVuelos" ToRole="tblCiudades" />
+          <NavigationProperty Name="tblCiudades1" Relationship="Self.FK_tblVuelos_tblCiudades1" FromRole="tblVuelos" ToRole="tblCiudades" />
+          <NavigationProperty Name="tblEstadoVuelo" Relationship="Self.FK_tblVuelos_tblEstadoVuelo" FromRole="tblVuelos" ToRole="tblEstadoVuelo" />
+          <NavigationProperty Name="tblNumeroVuelo" Relationship="Self.FK_tblVuelos_tblNumeroVuelo" FromRole="tblVuelos" ToRole="tblNumeroVuelo" />
+        </EntityType>
+        <Association Name="FK_tblVuelos_tblAerolineas">
+          <End Role="tblAerolineas" Type="Self.tblAerolineas" Multiplicity="1" />
+          <End Role="tblVuelos" Type="Self.tblVuelos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAerolineas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblVuelos">
+              <PropertyRef Name="AerolineaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVuelos_tblCiudades">
+          <End Role="tblCiudades" Type="Self.tblCiudades" Multiplicity="1" />
+          <End Role="tblVuelos" Type="Self.tblVuelos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCiudades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblVuelos">
+              <PropertyRef Name="CiudadOrigenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVuelos_tblCiudades1">
+          <End Role="tblCiudades" Type="Self.tblCiudades" Multiplicity="1" />
+          <End Role="tblVuelos" Type="Self.tblVuelos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCiudades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblVuelos">
+              <PropertyRef Name="CiudadDestinoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVuelos_tblEstadoVuelo">
+          <End Role="tblEstadoVuelo" Type="Self.tblEstadoVuelo" Multiplicity="1" />
+          <End Role="tblVuelos" Type="Self.tblVuelos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEstadoVuelo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblVuelos">
+              <PropertyRef Name="EstadoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVuelos_tblNumeroVuelo">
+          <End Role="tblNumeroVuelo" Type="Self.tblNumeroVuelo" Multiplicity="1" />
+          <End Role="tblVuelos" Type="Self.tblVuelos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNumeroVuelo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblVuelos">
+              <PropertyRef Name="NroVueloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VuelosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAerolineas" EntityType="Self.tblAerolineas" />
+          <EntitySet Name="tblCiudades" EntityType="Self.tblCiudades" />
+          <EntitySet Name="tblEstadoVuelo" EntityType="Self.tblEstadoVuelo" />
+          <EntitySet Name="tblNumeroVuelo" EntityType="Self.tblNumeroVuelo" />
+          <EntitySet Name="tblVuelos" EntityType="Self.tblVuelos" />
+          <AssociationSet Name="FK_tblVuelos_tblAerolineas" Association="Self.FK_tblVuelos_tblAerolineas">
+            <End Role="tblAerolineas" EntitySet="tblAerolineas" />
+            <End Role="tblVuelos" EntitySet="tblVuelos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVuelos_tblCiudades" Association="Self.FK_tblVuelos_tblCiudades">
+            <End Role="tblCiudades" EntitySet="tblCiudades" />
+            <End Role="tblVuelos" EntitySet="tblVuelos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVuelos_tblCiudades1" Association="Self.FK_tblVuelos_tblCiudades1">
+            <End Role="tblCiudades" EntitySet="tblCiudades" />
+            <End Role="tblVuelos" EntitySet="tblVuelos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVuelos_tblEstadoVuelo" Association="Self.FK_tblVuelos_tblEstadoVuelo">
+            <End Role="tblEstadoVuelo" EntitySet="tblEstadoVuelo" />
+            <End Role="tblVuelos" EntitySet="tblVuelos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVuelos_tblNumeroVuelo" Association="Self.FK_tblVuelos_tblNumeroVuelo">
+            <End Role="tblNumeroVuelo" EntitySet="tblNumeroVuelo" />
+            <End Role="tblVuelos" EntitySet="tblVuelos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VuelosModelStoreContainer" CdmEntityContainer="VuelosEntities">
+          <EntitySetMapping Name="tblAerolineas">
+            <EntityTypeMapping TypeName="VuelosModel.tblAerolineas">
+              <MappingFragment StoreEntitySet="tblAerolineas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Aerolinea" ColumnName="Aerolinea" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCiudades">
+            <EntityTypeMapping TypeName="VuelosModel.tblCiudades">
+              <MappingFragment StoreEntitySet="tblCiudades">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEstadoVuelo">
+            <EntityTypeMapping TypeName="VuelosModel.tblEstadoVuelo">
+              <MappingFragment StoreEntitySet="tblEstadoVuelo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="EstadoVuelo" ColumnName="EstadoVuelo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNumeroVuelo">
+            <EntityTypeMapping TypeName="VuelosModel.tblNumeroVuelo">
+              <MappingFragment StoreEntitySet="tblNumeroVuelo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="NumeroVuelo" ColumnName="NumeroVuelo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVuelos">
+            <EntityTypeMapping TypeName="VuelosModel.tblVuelos">
+              <MappingFragment StoreEntitySet="tblVuelos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="CiudadOrigenId" ColumnName="CiudadOrigenId" />
+                <ScalarProperty Name="CiudadDestinoId" ColumnName="CiudadDestinoId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="HoraSalida" ColumnName="HoraSalida" />
+                <ScalarProperty Name="Horallegada" ColumnName="Horallegada" />
+                <ScalarProperty Name="NroVueloId" ColumnName="NroVueloId" />
+                <ScalarProperty Name="AerolineaId" ColumnName="AerolineaId" />
+                <ScalarProperty Name="EstadoId" ColumnName="EstadoId" />
+                <ScalarProperty Name="CondicionVuelo" ColumnName="CondicionVuelo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
